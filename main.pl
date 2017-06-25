@@ -1,13 +1,11 @@
 use strict;
 use warnings;
-use v5.25;
 use Log::Log4perl qw(:easy);
 use Log::Log4perl::Level;
 use Getopt::Long;
 use Pod::Usage;
 use Data::Dumper;
-use lib '/home/gduhamel/Projet/Perl/';
-use Generic::Function qw(IsValidFile ReadYamlFile);
+use Generic::lib::Function qw(IsValidFile ReadYamlFile);
 
 BEGIN {
 	use constant FALSE => 0;
@@ -69,7 +67,7 @@ sub ParsingArguments {
 	}
 
 	if ( defined $Options->{Configuration}
-		&& Natixis::GenericFunction::IsValidFile( $Options->{Configuration} ) )
+		&& IsValidFile( $Options->{Configuration} ) )
 	{
 		$logger->info("File $Options->{Configuration} is a valid file.");
 	}
@@ -89,7 +87,7 @@ sub Main {
 	$logger->info("Arguments parsed.");
 	$logger->info("Parsing YAML file.");
 	my $YAML =
-	  Natixis::GenericFunction::ReadYamlFile( $Options->{Configuration} );
+	  ReadYamlFile( $Options->{Configuration} );
 	unless ($YAML) {
 		$logger->error("Can't parse YAML file : $Options->{Configuration}");
 		exit(1);
@@ -162,7 +160,7 @@ A lot of bugs not found yet.
 
 - CPNL Monitoring.
 
-- use Natixis::Database
+- use Generic::Database
 
 =head1 UPDATES
 
